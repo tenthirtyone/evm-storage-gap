@@ -12,6 +12,7 @@ contract Proxy {
     fallback() external {
         address impl = implementation;
         assembly {
+            let impl := sload(0)
             // The pointer to the free memory slot
             let ptr := mload(0x40)
             // Copy function signature and arguments from calldata at zero position into memory at pointer position

@@ -1,9 +1,9 @@
 pragma solidity 0.8.28;
 
-contract StorageImplementationPre {
+contract StorageImplementationPost {
     uint256 public x;
-    uint256 public y;
     uint256[49] public __datgap;
+    uint256 public y;
 
     uint256 public lastValue = 9001;
 

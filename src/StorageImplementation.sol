@@ -3,6 +3,12 @@ contract StorageImplementation {
     uint256 public x;
     uint256[50] public __datgap;
 
+    uint256 public lastValue;
+
+    function initialize() external {
+        lastValue = 9001;
+    }
+
     function setX(uint256 x_) external {
         x = x_;
     }
