@@ -16,4 +16,8 @@ contract StorageImplementation {
     function getX() external view returns (uint256) {
         return x;
     }
+
+    function setDatGap(uint256 index, uint256 value) external {
+        __datgap[index] = value;
+    }
 }

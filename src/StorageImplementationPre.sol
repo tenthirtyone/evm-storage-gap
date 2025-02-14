@@ -15,6 +15,10 @@ contract StorageImplementationPre {
         return x;
     }
 
+    function setDatGap(uint256 index, uint256 value) external {
+        __datgap[index] = value;
+    }
+
     function setY(uint256 y_) external {
         y = y_;
     }

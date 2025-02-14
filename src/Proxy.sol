@@ -1,38 +1,20 @@
-// SPDX-License-Identifier: MIT
-pragma solidity 0.8.28;
+import "@openzeppelin/contracts/proxy/transparent/TransparentUpgradeableProxy.sol";
 
-// This is a ZKSync compatible proxy and a replacement for OZ Clones
-contract Proxy {
-    address immutable implementation;
+contract Proxy is TransparentUpgradeableProxy {
+    constructor(
+        address _logic,
+        address initialOwner,
+        bytes memory _data
+    ) TransparentUpgradeableProxy(_logic, initialOwner, _data) {}
 
-    constructor(address _implementation) {
-        implementation = _implementation;
+    function upgradeToAndCall(
+        address newImplementation,
+        bytes memory data
+    ) public payable {
+        ERC1967Utils.upgradeToAndCall(newImplementation, data);
     }
 
-    fallback() external {
-        address impl = implementation;
-        assembly {
-            let impl := sload(0)
-            // The pointer to the free memory slot
-            let ptr := mload(0x40)
-            // Copy function signature and arguments from calldata at zero position into memory at pointer position
-            calldatacopy(ptr, 0, calldatasize())
-            // Delegatecall method of the implementation contract returns 0 on error
-            let result := delegatecall(gas(), impl, ptr, calldatasize(), 0, 0)
-            // Get the size of the last return data
-            let size := returndatasize()
-            // Copy the size length of bytes from return data at zero position to pointer position
-            returndatacopy(ptr, 0, size)
-            // Depending on the result value
-            switch result
-            case 0 {
-                // End execution and revert state changes
-                revert(ptr, size)
-            }
-            default {
-                // Return data with length of size at pointers position
-                return(ptr, size)
-            }
-        }
+    function implementation() public view returns (address) {
+        return ERC1967Utils.getImplementation();
     }
 }
