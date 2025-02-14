@@ -1,9 +1,10 @@
 pragma solidity 0.8.28;
 
-contract StorageImplementationPre {
+contract StorageImplementationPostV2 {
     uint256 public x;
+    uint256[48] private __datgap;
     uint256 public y;
-    uint256[49] private __datgap;
+    uint256 public z;
 
     uint256 public lastValue = 9001;
 
@@ -29,5 +30,13 @@ contract StorageImplementationPre {
 
     function getY() external view returns (uint256) {
         return y;
+    }
+
+    function setZ(uint256 z_) external {
+        z = z_;
+    }
+
+    function getZ() external view returns (uint256) {
+        return z;
     }
 }

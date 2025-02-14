@@ -2,7 +2,7 @@ pragma solidity 0.8.28;
 
 contract StorageImplementationPost {
     uint256 public x;
-    uint256[49] public __datgap;
+    uint256[49] private __datgap;
     uint256 public y;
 
     uint256 public lastValue = 9001;
@@ -17,6 +17,10 @@ contract StorageImplementationPost {
 
     function setDatGap(uint256 index, uint256 value) external {
         __datgap[index] = value;
+    }
+
+    function getDatGap(uint256 index) external view returns (uint256) {
+        return __datgap[index];
     }
 
     function setY(uint256 y_) external {
