@@ -30,4 +30,20 @@ contract StorageImplementationPost {
     function getY() external view returns (uint256) {
         return y;
     }
+
+    function readStorageSlot(uint256 slot) public view returns (bytes32) {
+        // Assembly block to read storage slot
+        bytes32 data;
+        assembly {
+            // Use SLOAD to read from the storage slot
+            data := sload(slot)
+        }
+
+        return data;
+    }
+
+    function readStorageSlotAsUint(uint256 slot) public view returns (uint256) {
+        bytes32 data = readStorageSlot(slot);
+        return uint256(data);
+    }
 }

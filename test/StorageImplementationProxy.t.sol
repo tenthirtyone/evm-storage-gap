@@ -162,12 +162,21 @@ contract TestStorageImplementationProxy is Test {
             address(proxy)
         );
 
+        proxyStoragePostInheritance.setZ(25); // 25th -0indexed letter
+
         console.log(proxyStoragePostInheritance.getX());
         console.log(proxyStoragePostInheritance.getY());
         console.log(proxyStoragePostInheritance.getZ());
         console.log(proxyStoragePostInheritance.lastValue());
         console.log(proxyStoragePostInheritance.getDatGap(0));
         console.log(proxyStoragePostInheritance.getDatGap(48));
-        console.log(proxyStoragePostInheritance.getDatGap(49));
+        console.log("--------------------------------");
+
+        console.log(proxyStoragePostInheritance.readStorageSlotAsUint(0));
+        console.log(proxyStoragePostInheritance.readStorageSlotAsUint(48));
+        console.log(proxyStoragePostInheritance.readStorageSlotAsUint(49));
+        console.log(proxyStoragePostInheritance.readStorageSlotAsUint(50));
+        console.log(proxyStoragePostInheritance.readStorageSlotAsUint(51));
+        console.log(proxyStoragePostInheritance.readStorageSlotAsUint(52)); // Z is in the 52nd slot
     }
 }
